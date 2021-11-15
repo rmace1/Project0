@@ -72,7 +72,9 @@ public class Server {
 
         //get list of filtered accounts for a client
         server.get("/clients//{clientId}/accounts", context -> {
-            String filterBy = context.queryParam("filterBy");
+            Integer amountLessThan = Integer.parseInt(context.queryParam("amountLessThan"));
+            Integer amountGreaterThan = Integer.parseInt(context.queryParam("amountGreaterThan"));
+            //String filterBy = context.queryParam("filterBy");
         });
 
         //get an account for a specific client

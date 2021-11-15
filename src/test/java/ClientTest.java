@@ -3,14 +3,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AccountTest {
-    Account account1;
+class ClientTest {
 
     @BeforeEach
-    void beforeEach(){
-    account1 = new Account();
+    void setUp() {
     }
-
 
     @Test
     void getId() {
@@ -21,22 +18,22 @@ class AccountTest {
     }
 
     @Test
-    void getBalance() {
+    void getFirstName() {
     }
 
     @Test
-    void getCategory() {
+    void setFirstName() {
     }
 
     @Test
-    void setCategory() {
+    void getLastName() {
     }
 
     @Test
-    void setBalance() {
+    void setLastName() {
     }
 
     @Test
-    void transfer() {
+    void testToString() {
     }
 }

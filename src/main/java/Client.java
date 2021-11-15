@@ -7,6 +7,13 @@ public class Client {
     private String lastName;
     //private ArrayList<Account> accounts = new ArrayList<Account>();
 
+    public Client(){}
+
+    public Client(String firstName, String lastName){
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
 
     public int getId() {return id;}
 
