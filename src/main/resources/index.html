@@ -6,12 +6,33 @@
     </head>
 
     <body>
-        <div>
+        <div style="display: block;">
             Create a new client
+            <br>
+            <form action="/clients" method="post" target="clientListFrame">
+                <input type="text">
+                <br>
+                First Name
+                <br>
+                <input type="text">
+                <br>
+                Last Name
+                <br>
+                <button id="newClientBtn">Create client</button>
+            </form>
         </div>
 
         <div>
             Get a client's info
+            <br>
+            <form action="/clients/"  method="get" target="clientListFrame">
+                <input type="number" id="clientID" title="Insert the ID of the client you want to search for.">
+                 models.Client ID
+                <br>
+                <button id="searchForClientBtn">Search for client</button>   
+                <br> <br>
+                <iframe id="clientListFrame"></iframe>
+            </form>
         </div>
         
         <div>

@@ -1,3 +1,5 @@
+package models;
+
 /**
  * An account should be able to have funds deposited, withdrawn, and transferred.
  */
@@ -32,8 +34,12 @@ public class Account {
         this.category = category;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
+    public void deposit(double amount){
+        this.balance += amount;
+    }
+
+    public void withdraw(double amount){
+        this.balance -= amount;
     }
 
     public void transfer(Account receivingAccount, double amountToTransfer){

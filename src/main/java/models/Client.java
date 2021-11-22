@@ -1,3 +1,5 @@
+package models;
+
 /**
  * Contains a collection of accounts
  */
@@ -5,7 +7,7 @@ public class Client {
     private int id;
     private String firstName;
     private String lastName;
-    //private ArrayList<Account> accounts = new ArrayList<Account>();
+    //private ArrayList<models.Account> accounts = new ArrayList<models.Account>();
 
     public Client(){}
 
