@@ -2,6 +2,7 @@ package models;
 
 /**
  * Contains a collection of accounts
+ * Modeled as the patron of the bank and not the employee managing the accounts
  */
 public class Client {
     private int id;
@@ -16,10 +17,16 @@ public class Client {
         this.lastName = lastName;
     }
 
+    public Client(int id, String firstName, String lastName){
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
 
     public int getId() {return id;}
 
-    public void setId(int id) {this.id = id;}
+    //public void setId(int id) {this.id = id;}
 
     public String getFirstName() {return firstName;}
 

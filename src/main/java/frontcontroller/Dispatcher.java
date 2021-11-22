@@ -1,18 +1,19 @@
 package frontcontroller;
 
-import controllers.BankController;
+import controllers.ClientController;
 import io.javalin.Javalin;
 import models.Client;
 
 import java.util.ArrayList;
 
+//contains endpoint methods
 public class Dispatcher {
     ArrayList<Client> clients = new ArrayList<Client>();
 
     public Dispatcher(Javalin app){
 
         //adds a basic client to the client list
-        app.get("/addClient", BankController::addClient);
+        app.get("/addClient", ClientController::addClient);
 
         /*context -> {
             Client client = new Client();

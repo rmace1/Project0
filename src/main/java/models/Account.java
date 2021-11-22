@@ -5,6 +5,7 @@ package models;
  */
 public class Account {
     private int id;
+    private String name;
     private double balance;
     private Category category;
 
@@ -21,6 +22,10 @@ public class Account {
     public void setId(int id) {
         this.id = id;
     }
+
+    public void setName(String name){ this.name = name;}
+
+    public String getName(){ return this.name;}
 
     public double getBalance() {
         return balance;
