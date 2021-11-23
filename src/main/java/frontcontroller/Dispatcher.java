@@ -1,10 +1,13 @@
 package frontcontroller;
 
+import controllers.AccountController;
 import controllers.ClientController;
 import io.javalin.Javalin;
 import models.Client;
 
 import java.util.ArrayList;
+
+import static io.javalin.apibuilder.ApiBuilder.*;
 
 //contains endpoint methods
 public class Dispatcher {
@@ -12,22 +15,51 @@ public class Dispatcher {
 
     public Dispatcher(Javalin app){
 
-        //adds a basic client to the client list
+        app.routes(() -> {
+           path("/clients", () ->{
+               get(ClientController::getClients); //get all clients
+               post(ClientController::addClient); //create a new client
+               path("/{id}", () -> {
+                   get(ClientController::getAClient); //get a specific client
+                   put(ClientController::updateClient); //updated a client's info
+                   delete(ClientController::deleteClient); //delete a client
+                   path("/accounts", () -> {
+                       get(AccountController::getAccounts); //get all accounts a client owns; accepts query params for filtering
+                       post(AccountController::addAccount); //create an account for a client
+                       //path("/accounts?")
+                       path("/{accountId}", () -> {
+                           get(AccountController::getAccount); //gets a specific account
+                           put(AccountController::updateAccount); //update the specified account
+                           delete(AccountController::deleteAccount); //delete the account
+                           patch(AccountController::adjustBalance); //deposit or withdraw money from an account
+                           path("/transfer/{transferId}", () -> {
+                               patch(AccountController::transferFunds); //transfer from current account to specified account
+                           });
+                       });
+               });
+
+               });
+           });
+        });
+
+        /*//adds a basic client to the client list
         app.get("/addClient", ClientController::addClient);
 
-        /*context -> {
+        *//*context -> {
             Client client = new Client();
             client.setId(clients.size() + 1);
             clients.add(client);
             System.out.println("New models.Client added.");
-        });*/
+        });*//*
 
         //returns a list of all clients
-        app.get("/clients", context -> {
+        app.get("/clients", ClientController::getClients);
+
+        *//*        context -> {
             //context.result(clients.toString());
             System.out.println("teeheeheehee");
             context.result(clients.toString());
-        });
+        });*//*
 
         //return the client id listed in the path
         app.get("/clients/{clientId}", context -> {
@@ -181,7 +213,7 @@ public class Dispatcher {
             }
 
         });
-
+*/
 
     }
 }

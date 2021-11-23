@@ -6,6 +6,12 @@ import io.javalin.Javalin;
 public class FrontController {
 
     public FrontController(Javalin app){
+        app.exception(NumberFormatException.class, (e, context) -> {
+            context.result("Invalid input, expecting a number.");
+        });
+
         new Dispatcher(app);
     }
+
+
 }
