@@ -13,17 +13,39 @@ import java.util.Properties;
 
 //Connects to service
 public class ClientDao implements ClientDaoInterface {
+    private String url;
+    private String userName;
+    private String password;
+
+    public ClientDao(){
+        Properties prop = new Properties();
+        String fileName = "config.txt";
+
+        try (FileInputStream fis = new FileInputStream(fileName)) {
+
+            prop.load(fis);
+            url = "jdbc:postgresql://" + prop.getProperty("jdbcConnection") + "/" + prop.getProperty("jdbcDbName");
+            userName = prop.getProperty("jdbcUserName");
+            password = prop.getProperty("jdbcPassword");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ClientDao(String url, String userName, String password){
+        this.url = url;
+        this.userName = userName;
+        this.password = password;
+    }
 
     @Override
     public List<Client> getClients() {
         List<Client> clients = new ArrayList<>();
-        Properties prop = new Properties();
-        String fileName = "config.txt";
-        try (FileInputStream fis = new FileInputStream(fileName)) {
-            prop.load(fis);
-            String url = "jdbc:postgresql://" + prop.getProperty("jdbcConnection") + "/" + prop.getProperty("jdbcDbName");
-            Connection conn = DriverManager.getConnection(url, prop.get("jdbcUserName").toString(), prop.getProperty("jdbcPassword").toString());
+
+        try (Connection conn = DriverManager.getConnection(url, userName, password)) {
             String sql = "SELECT * FROM clients;";
+
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ResultSet rs = ps.executeQuery();
@@ -42,12 +64,7 @@ public class ClientDao implements ClientDaoInterface {
     @Override
     public Client getClient(int id) {
         Client client = null;
-        Properties prop = new Properties();
-        String fileName = "config.txt";
-        try (FileInputStream fis = new FileInputStream(fileName)) {
-            prop.load(fis);
-            String url = "jdbc:postgresql://" + prop.getProperty("jdbcConnection") + "/" + prop.getProperty("jdbcDbName");
-            Connection conn = DriverManager.getConnection(url, prop.get("jdbcUserName").toString(), prop.getProperty("jdbcPassword").toString());
+        try (Connection conn = DriverManager.getConnection(url, userName, password)) {
             String sql = "SELECT * FROM clients WHERE id = ?;";
 
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -68,12 +85,7 @@ public class ClientDao implements ClientDaoInterface {
     @Override
     public boolean createClient(Client newClient) {
 
-        Properties prop = new Properties();
-        String fileName = "config.txt";
-        try (FileInputStream fis = new FileInputStream(fileName)) {
-            prop.load(fis);
-            String url = "jdbc:postgresql://" + prop.getProperty("jdbcConnection") + "/" + prop.getProperty("jdbcDbName");
-            Connection conn = DriverManager.getConnection(url, prop.get("jdbcUserName").toString(), prop.getProperty("jdbcPassword").toString());
+        try (Connection conn = DriverManager.getConnection(url, userName, password)) {
             String sql = "INSERT INTO clients VALUES (DEFAULT, ?, ?);";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, newClient.getFirstName());
@@ -93,12 +105,7 @@ public class ClientDao implements ClientDaoInterface {
     @Override
     public boolean deleteClient(int id) {
 
-        Properties prop = new Properties();
-        String fileName = "config.txt";
-        try (FileInputStream fis = new FileInputStream(fileName)) {
-            prop.load(fis);
-            String url = "jdbc:postgresql://" + prop.getProperty("jdbcConnection") + "/" + prop.getProperty("jdbcDbName");
-            Connection conn = DriverManager.getConnection(url, prop.get("jdbcUserName").toString(), prop.getProperty("jdbcPassword").toString());
+        try (Connection conn = DriverManager.getConnection(url, userName, password)) {
             String sql = "DELETE FROM clients WHERE id = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
@@ -116,12 +123,7 @@ public class ClientDao implements ClientDaoInterface {
     @Override
     public Client updateClient(Client updateClient) {
         Client client = null;
-        Properties prop = new Properties();
-        String fileName = "config.txt";
-        try (FileInputStream fis = new FileInputStream(fileName)) {
-            prop.load(fis);
-            String url = "jdbc:postgresql://" + prop.getProperty("jdbcConnection") + "/" + prop.getProperty("jdbcDbName");
-            Connection conn = DriverManager.getConnection(url, prop.get("jdbcUserName").toString(), prop.getProperty("jdbcPassword").toString());
+        try (Connection conn = DriverManager.getConnection(url, userName, password)) {
             String sql = "UPDATE clients SET firstname = ?, lastname = ? WHERE id = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, updateClient.getFirstName());

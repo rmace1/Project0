@@ -11,11 +11,11 @@ public interface AccountDaoInterface {
     //delete account
     //withdraw/deposit amount into account
     //transfer funds z from current account into account y
-    boolean createAccount();
-    List<Account> getAccounts();
+    boolean createAccount(Account newAccount);
+    List<Account> getAccounts(int clientId, double upperLimit, double lowerLimit);
+    Account getAccount(Account account);
     Account updateAccount(Account account);
     boolean deleteAccount(int accountid);
-    Account withdraw(double amount);
-    Account deposit(double amount);
-    Account transferFunds(Account receivingAccount, double amount);
+    Account adjustBalance(int accountId, double amount);
+    Account transferFunds(int sendingAccountId, int receivingAccountId, double amount);
 }

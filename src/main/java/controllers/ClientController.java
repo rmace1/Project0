@@ -17,7 +17,7 @@ public class ClientController {
 
     public static List<Client> clients = new ArrayList<>();
 
-    private static String convertToJson(Object obj){
+    public static String convertToJson(Object obj){
         String jsonString = null;
         try {
             jsonString = new ObjectMapper().writeValueAsString(obj);

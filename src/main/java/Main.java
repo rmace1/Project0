@@ -2,6 +2,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import frontcontroller.FrontController;
 import io.javalin.Javalin;
 import io.javalin.http.staticfiles.Location;
+import models.Account;
+import models.Category;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -23,13 +25,12 @@ public class Main {
     static Logger log = Logger.getLogger(Main.class);
 
     public static void main(String[] args) {
-        log.setLevel(Level.WARN);
+        log.setLevel(Level.OFF);
         log.debug("this is a debug log.");
         log.info("this is an info log.");
         log.warn("this is a warning log.");
         log.error("this is an error log.");
         log.fatal("this is a fatal log.");
-
 
 
         Javalin server = Javalin.create().start(9000);

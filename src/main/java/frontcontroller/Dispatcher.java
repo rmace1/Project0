@@ -19,6 +19,7 @@ public class Dispatcher {
            path("/clients", () ->{
                get(ClientController::getClients); //get all clients
                post(ClientController::addClient); //create a new client
+
                path("/{id}", () -> {
                    get(ClientController::getAClient); //get a specific client
                    put(ClientController::updateClient); //updated a client's info

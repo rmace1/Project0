@@ -44,35 +44,35 @@ class AccountTest {
 
     @Test
     void depositValidAmount() {
-        account1.deposit(100);
+        //account1.deposit(100);
 
         assertEquals(account1.getBalance(), 100);
     }
 
     @Test
     void depositInvalidAmount() {
-        account1.deposit(-100);
-    }
+    }//account1.deposit(-100);
+
 
     @Test
     void withdrawValidAmount() {
-        Account account = new Account(200);
-        account.withdraw(100);
+        Account account = new Account();
+        //account.withdraw(100);
 
         assertEquals(account.getBalance(), 100);
     }
 
     @Test
     void withdrawInvalidAmount() {
-        account1.withdraw(100000);
+        //account1.withdraw(100000);
 
     }
 
     @Test
     void transferValidAmount() {
-        Account account2 = new Account(100);
-        account1.deposit(100);
-        account2.transfer(account1, 100);
+        Account account2 = new Account();
+        //account1.deposit(100);
+        //account2.transfer(account1, 100);
 
         assertEquals(account2.getBalance(), 0);
         assertEquals(account1.getBalance(), 200);
@@ -80,9 +80,9 @@ class AccountTest {
 
     @Test
     void transferInvalidAmount() {
-        Account account2 = new Account(100);
-        account1.deposit(100);
+        Account account2 = new Account();
+        //account1.deposit(100);
 
-        account2.transfer(account1, 1000);
+        //account2.transfer(account1, 1000);
     }
 }

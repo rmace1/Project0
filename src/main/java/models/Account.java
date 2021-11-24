@@ -8,11 +8,15 @@ public class Account {
     private String name;
     private double balance;
     private Category category;
+    private int clientId;
 
     public Account(){this.balance = 0;}
 
-    public Account(double startingBalance){
+    public Account(String name, double startingBalance, Category category, int clientId){
+        this.name = name;
         this.balance = startingBalance;
+        this.category = category;
+        this.clientId = clientId;
     }
 
     public int getId() {
@@ -39,17 +43,11 @@ public class Account {
         this.category = category;
     }
 
-    public void deposit(double amount){
+    public void setClientId(int id){this.clientId = id;}
+
+    public int getClientId(){return this.clientId;}
+
+    public void adjustBalance(double amount){
         this.balance += amount;
-    }
-
-    public void withdraw(double amount){
-        this.balance -= amount;
-    }
-
-    public void transfer(Account receivingAccount, double amountToTransfer){
-        //balance validation
-        this.balance -= amountToTransfer;
-        receivingAccount.balance += amountToTransfer;
     }
 }
