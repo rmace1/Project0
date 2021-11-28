@@ -13,9 +13,10 @@ public interface AccountDaoInterface {
     //transfer funds z from current account into account y
     boolean createAccount(Account newAccount);
     List<Account> getAccounts(int clientId, double upperLimit, double lowerLimit);
-    Account getAccount(Account account);
+    Account getAccount(int accountId);
     Account updateAccount(Account account);
     boolean deleteAccount(int accountid);
-    Account adjustBalance(int accountId, double amount);
+    Account withdrawFromAccount(int accountId, double amount);
+    Account depositToAccount(int accountId, double amount);
     Account transferFunds(int sendingAccountId, int receivingAccountId, double amount);
 }

@@ -34,18 +34,13 @@ public class ClientController {
         String lName = context.formParam("lastname");
         Client client = new Client(fName, lName);
         context.contentType("application/json");
+        context.status(201);
         context.result(convertToJson(clientService.addClient(client)));
     }
 
     public static void getClients(Context context) {
-        /*String jsonString = null;
-        try {
-            jsonString = new ObjectMapper().writeValueAsString(clientService.getClients());
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }*/
-
         context.contentType("application/json");
+        context.status(200);
         context.result(convertToJson(clientService.getClients()));
     }
 
@@ -53,7 +48,13 @@ public class ClientController {
         Integer id = Integer.parseInt(context.pathParam("id"));
 
         context.contentType("application/json");
-        context.result(convertToJson(clientService.getClient(id)));
+        Client client = clientService.getClient(id);
+        if(client == null){
+            context.status(404);
+        }else{
+            context.result(convertToJson(client));
+        }
+
     }
 
     public static void updateClient(Context context) {
@@ -64,13 +65,26 @@ public class ClientController {
         Client client = new Client(id, fName, lName);
         //return the updated client to the result
         context.contentType("application/json");
-        context.result(convertToJson(clientService.updateClient(client)));
+        Client updatedClient = clientService.updateClient(client);
+        if(updatedClient == null) {
+            context.status(404);
+        }else
+        {
+            context.result(convertToJson(updatedClient));
+        }
     }
 
     public static void deleteClient(Context context) {
         Integer id = Integer.parseInt(context.pathParam("id"));
         context.contentType("application/json");
-        context.result(convertToJson(clientService.deleteClient(id)));
+        boolean deleteSuccessful = clientService.deleteClient(id);
+        if(deleteSuccessful){
+            context.status(205);
+        }else
+        {
+            context.status(404);
+        }
+
     }
 
 

@@ -19,12 +19,12 @@ class ClientDaoTest {
     @BeforeEach
     void setUp() {
         clientDao = new ClientDao(H2Util.url, H2Util.userName, H2Util.password);
-        H2Util.createTable();
+        H2Util.createClientTable();
     }
 
     @AfterEach
     void tearDown() {
-        H2Util.dropTable();
+        H2Util.dropClientTable();
     }
 
     @Test

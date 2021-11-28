@@ -1,3 +1,5 @@
+package models;
+
 import models.Account;
 import models.Category;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,9 +46,12 @@ class AccountTest {
 
     @Test
     void depositValidAmount() {
-        //account1.deposit(100);
+        assertEquals(account1.getBalance(), 0);
 
-        assertEquals(account1.getBalance(), 100);
+        account1.deposit(100.59);
+
+        assertEquals(account1.getBalance(), 100.59);
+
     }
 
     @Test
@@ -56,33 +61,16 @@ class AccountTest {
 
     @Test
     void withdrawValidAmount() {
-        Account account = new Account();
-        //account.withdraw(100);
+        account1.setBalance(100.00);
 
-        assertEquals(account.getBalance(), 100);
+        account1.withdraw(50.0);
+
+        assertEquals(account1.getBalance(), 50.0);
     }
 
     @Test
     void withdrawInvalidAmount() {
         //account1.withdraw(100000);
 
-    }
-
-    @Test
-    void transferValidAmount() {
-        Account account2 = new Account();
-        //account1.deposit(100);
-        //account2.transfer(account1, 100);
-
-        assertEquals(account2.getBalance(), 0);
-        assertEquals(account1.getBalance(), 200);
-    }
-
-    @Test
-    void transferInvalidAmount() {
-        Account account2 = new Account();
-        //account1.deposit(100);
-
-        //account2.transfer(account1, 1000);
     }
 }

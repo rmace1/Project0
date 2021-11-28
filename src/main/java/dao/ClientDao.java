@@ -1,6 +1,7 @@
 package dao;
 
 import models.Client;
+import org.apache.log4j.Logger;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
@@ -16,6 +17,7 @@ public class ClientDao implements ClientDaoInterface {
     private String url;
     private String userName;
     private String password;
+    Logger log = Logger.getLogger(ClientDao.class);
 
     public ClientDao(){
         Properties prop = new Properties();
@@ -29,7 +31,7 @@ public class ClientDao implements ClientDaoInterface {
             password = prop.getProperty("jdbcPassword");
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
         }
     }
 
@@ -55,7 +57,7 @@ public class ClientDao implements ClientDaoInterface {
             }
         } catch (Exception e)
         {
-            e.printStackTrace();
+            log.error(e);
         }
 
         return clients;
@@ -77,7 +79,7 @@ public class ClientDao implements ClientDaoInterface {
             }
         } catch (Exception e)
         {
-            e.printStackTrace();
+            log.error(e);
         }
         return client;
     }
@@ -96,7 +98,7 @@ public class ClientDao implements ClientDaoInterface {
 
         } catch (Exception e)
         {
-            e.printStackTrace();
+            log.error(e);
         }
 
         return false;
@@ -115,7 +117,7 @@ public class ClientDao implements ClientDaoInterface {
 
         } catch (Exception e)
         {
-            e.printStackTrace();
+            log.error(e);
         }
         return false;
     }
@@ -143,7 +145,7 @@ public class ClientDao implements ClientDaoInterface {
             }
         } catch (Exception e)
         {
-            e.printStackTrace();
+            log.error(e);
         }
         return client;
     }

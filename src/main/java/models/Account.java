@@ -19,6 +19,14 @@ public class Account {
         this.clientId = clientId;
     }
 
+    public Account(int id, String name, double startingBalance, Category category, int clientId){
+        this.id = id;
+        this.name = name;
+        this.balance = startingBalance;
+        this.category = category;
+        this.clientId = clientId;
+    }
+
     public int getId() {
         return id;
     }
@@ -31,9 +39,15 @@ public class Account {
 
     public String getName(){ return this.name;}
 
+    public void setBalance(double amount){balance = amount;}
+
     public double getBalance() {
         return balance;
     }
+
+    public void withdraw(double amount){balance -= amount;}
+
+    public void deposit(double amount){balance += amount;}
 
     public Category getCategory() {
         return category;
@@ -47,7 +61,8 @@ public class Account {
 
     public int getClientId(){return this.clientId;}
 
-    public void adjustBalance(double amount){
-        this.balance += amount;
+    @Override
+    public String toString() {
+        return "Account number: " + id + " Name: " + name + " has $" + balance + " funds and is categorized as " + category.toString();
     }
 }

@@ -4,6 +4,7 @@ import models.Account;
 import models.Category;
 import models.Client;
 import net.bytebuddy.dynamic.scaffold.MethodRegistry;
+import org.apache.log4j.Logger;
 
 import java.io.*;
 import java.sql.Connection;
@@ -19,6 +20,7 @@ public class AccountDao implements AccountDaoInterface {
     private String url;
     private String userName;
     private String password;
+    Logger log = Logger.getLogger(AccountDao.class);
 
     public AccountDao() {
         Properties prop = new Properties();
@@ -32,7 +34,7 @@ public class AccountDao implements AccountDaoInterface {
             password = prop.getProperty("jdbcPassword");
 
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error(e);
         }
     }
 
@@ -55,7 +57,7 @@ public class AccountDao implements AccountDaoInterface {
             return (ps.executeUpdate() > 0);
         } catch (Exception e)
         {
-            e.printStackTrace();
+            log.error(e);
         }
         return false;
     }
@@ -66,8 +68,8 @@ public class AccountDao implements AccountDaoInterface {
         try (Connection conn = DriverManager.getConnection(url, userName, password)) {
             String sql;
             PreparedStatement ps;
-            if(upperLimit == 0 && lowerLimit == 0) {
-                sql = "SELECT * FROM accounts WHERE clientid = ?;";
+            if(upperLimit < 0 && lowerLimit < 0) {
+                sql = "SELECT * FROM accounts WHERE clientid = ? ORDER BY id;";
                 ps = conn.prepareStatement(sql);
                 //ps.setInt(1, clientId);
             }else
@@ -89,26 +91,24 @@ public class AccountDao implements AccountDaoInterface {
                 double balance = rs.getDouble(3) ;
                 Category category = Category.valueOf(rs.getString(4));
                 int cId = rs.getInt(5);
-                Account account = new Account(name, balance, category, cId);
-                account.setId(id);
+                Account account = new Account(id, name, balance, category, cId);
                 accounts.add(account);
             }
         } catch (Exception e)
         {
-            e.printStackTrace();
+            log.error(e);
         }
         return accounts;
     }
 
     @Override
-    public Account getAccount(Account account) {
+    public Account getAccount(int accountId) {
         Account newAccount = null;
         List<Account> accounts = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(url, userName, password)) {
-            String sql = "SELECT * FROM accounts WHERE id = ? AND clientid = ?;";
+            String sql = "SELECT * FROM accounts WHERE id = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, account.getId());
-            ps.setInt(2, account.getClientId());
+            ps.setInt(1, accountId);
 
             ResultSet rs = ps.executeQuery();
 
@@ -118,13 +118,12 @@ public class AccountDao implements AccountDaoInterface {
                 double balance = rs.getDouble(3) ;
                 Category category = Category.valueOf(rs.getString(4));
                 int cId = rs.getInt(5);
-                newAccount = new Account(name, balance, category, cId);
-                newAccount.setId(id);
+                newAccount = new Account(id, name, balance, category, cId);
 
             }
         } catch (Exception e)
         {
-            e.printStackTrace();
+            log.error(e);
         }
         return newAccount;
     }
@@ -149,12 +148,12 @@ public class AccountDao implements AccountDaoInterface {
             ResultSet rs = ps.executeQuery();
 
             while(rs.next()){
-                newAccount = new Account(rs.getString(2), rs.getDouble(3),
+                newAccount = new Account(rs.getInt(1), rs.getString(2), rs.getDouble(3),
                         Category.valueOf(rs.getString(4)), rs.getInt(5));
             }
         } catch (Exception e)
         {
-            e.printStackTrace();
+            log.error(e);
         }
         return newAccount;
     }
@@ -170,14 +169,13 @@ public class AccountDao implements AccountDaoInterface {
 
         } catch (Exception e)
         {
-            e.printStackTrace();
+            log.error(e);
         }
 
         return false;
     }
 
-    @Override
-    public Account adjustBalance(int accountId, double amount) {
+    public Account withdrawFromAccount(int accountId, double amount) {
         Account account = new Account();
         try (Connection conn = DriverManager.getConnection(url, userName, password)) {
             String sql = "SELECT * FROM accounts WHERE id = ?;";
@@ -187,12 +185,15 @@ public class AccountDao implements AccountDaoInterface {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()){
-                account = new Account(rs.getString(2), rs.getDouble(3),
+                account = new Account(rs.getInt(1), rs.getString(2), rs.getDouble(3),
                         Category.valueOf(rs.getString(4)), rs.getInt(5));
-                account.setId(rs.getInt(1));
             }
 
-            account.adjustBalance(amount);
+            if(account.getBalance() < amount){
+                return new Account(0, "Insufficient Funds.", 0.00, Category.PERSONAL, 0);
+            }
+
+            account.withdraw(amount);
 
             sql = "UPDATE accounts SET balance = ? WHERE id = ?";
             ps = conn.prepareStatement(sql);
@@ -203,7 +204,39 @@ public class AccountDao implements AccountDaoInterface {
 
         } catch (Exception e)
         {
-            e.printStackTrace();
+            log.error(e);
+        }
+
+
+        return account;
+    }
+
+    public Account depositToAccount(int accountId, double amount) {
+        Account account = new Account();
+        try (Connection conn = DriverManager.getConnection(url, userName, password)) {
+            String sql = "SELECT * FROM accounts WHERE id = ?;";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, accountId);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()){
+                account = new Account(rs.getInt(1), rs.getString(2), rs.getDouble(3),
+                        Category.valueOf(rs.getString(4)), rs.getInt(5));
+            }
+
+            account.deposit(amount);
+
+            sql = "UPDATE accounts SET balance = ? WHERE id = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setDouble(1, account.getBalance());
+            ps.setInt(2, accountId);
+
+            ps.executeUpdate();
+
+        } catch (Exception e)
+        {
+            log.error(e);
         }
 
 
@@ -213,9 +246,22 @@ public class AccountDao implements AccountDaoInterface {
     @Override
     public Account transferFunds(int sendingAccountId, int receivingAccountId, double amount) {
         Account sendingAccount = new Account();
-        Account receivingAccount = new Account();
+        Account receivingAccount;
 
         try (Connection conn = DriverManager.getConnection(url, userName, password)) {
+
+            sendingAccount = withdrawFromAccount(sendingAccountId, amount);
+            receivingAccount = getAccount(receivingAccountId);
+
+            if(sendingAccount.getId() == 0){
+                return sendingAccount;
+            };
+
+            receivingAccount.deposit(amount);
+
+            updateAccount(receivingAccount);
+
+            /*
             String sql = "SELECT * FROM accounts WHERE id = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, sendingAccountId);
@@ -223,9 +269,13 @@ public class AccountDao implements AccountDaoInterface {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                sendingAccount = new Account(rs.getString(2), rs.getDouble(3),
+                sendingAccount = new Account(rs.getInt(1), rs.getString(2), rs.getDouble(3),
                         Category.valueOf(rs.getString(4)), rs.getInt(5));
-                sendingAccount.setId(rs.getInt(1));
+            }
+
+            if(sendingAccount.getBalance() < amount){
+                Account accountZero = new Account(0, "Insufficient Funds", 0.0, Category.PERSONAL, 0);
+                return accountZero;
             }
 
             sql = "SELECT * FROM accounts WHERE id = ?;";
@@ -235,9 +285,8 @@ public class AccountDao implements AccountDaoInterface {
             rs = ps.executeQuery();
 
             while (rs.next()) {
-                receivingAccount = new Account(rs.getString(2), rs.getDouble(3),
+                receivingAccount = new Account(rs.getInt(1), rs.getString(2), rs.getDouble(3),
                         Category.valueOf(rs.getString(4)), rs.getInt(5));
-                receivingAccount.setId(rs.getInt(1));
             }
 
             sendingAccount.adjustBalance(-amount);
@@ -257,10 +306,10 @@ public class AccountDao implements AccountDaoInterface {
             ps.setInt(2, sendingAccountId);
 
             ps.executeUpdate();
-
+        */
         } catch (Exception e)
         {
-            e.printStackTrace();
+            log.error(e);
         }
         return sendingAccount;
     }

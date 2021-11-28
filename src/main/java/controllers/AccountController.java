@@ -4,7 +4,11 @@ import dao.AccountDao;
 import io.javalin.http.Context;
 import models.Account;
 import models.Category;
+import models.Client;
 import service.AccountService;
+
+import java.util.List;
+import java.util.Locale;
 
 //connects to dispatcher
 public class AccountController {
@@ -20,25 +24,34 @@ public class AccountController {
             lowerLimit = Double.parseDouble(context.queryParam("amountGreaterThan"));
         } catch (Exception e)
         {
-            upperLimit = 0.0;
-            lowerLimit = 0.0;
+            upperLimit = -1.0;
+            lowerLimit = -1.0;
         }
-        System.out.println(lowerLimit);
-        System.out.println(upperLimit);
-        context.contentType("application/json");
-        context.result(ClientController.convertToJson(accountService.getAccounts(clientId, upperLimit, lowerLimit)));
+        List<Account> accountList = accountService.getAccounts(clientId, upperLimit, lowerLimit);
+        if(accountList.size() == 0)
+        {
+            context.status(404);
+        }else
+        {
+            context.contentType("application/json");
+            context.result(ClientController.convertToJson(accountList));
+        }
+
     }
 
     public static void addAccount(Context context) {
         Integer clientId = Integer.parseInt(context.pathParam("id"));
         String name = context.formParam("name");
         Double balance = Double.parseDouble(context.formParam("balance"));
-        Category category = Category.valueOf(context.formParam("category"));
+        Category category = Category.valueOf(context.formParam("category").toUpperCase());
         Account newAccount = new Account(name, balance, category, clientId);
 
-        context.contentType("application/json");
-        context.result(ClientController.convertToJson(accountService.createAccount(newAccount)));
-
+        boolean successful = accountService.createAccount(newAccount);
+        if(successful) {
+            context.contentType("application/json");
+            context.status(201);
+            context.result(ClientController.convertToJson(successful));
+        }
     }
 
     //get one account from a client by id
@@ -49,8 +62,13 @@ public class AccountController {
         newAccount.setId(id);
         newAccount.setClientId(clientId);
 
-        context.contentType("application/json");
-        context.result(ClientController.convertToJson(accountService.getAccount(newAccount)));
+        Account account = accountService.getAccount(id);
+        if(account == null){
+            context.status(404);
+        }else {
+            context.contentType("application/json");
+            context.result(ClientController.convertToJson(account));
+        }
     }
 
     public static void updateAccount(Context context) {
@@ -58,52 +76,75 @@ public class AccountController {
         Integer accountId = Integer.parseInt(context.pathParam("accountId"));
         String name = context.formParam("name");
         Double balance = Double.parseDouble(context.formParam("balance"));
-        Category category = Category.valueOf(context.formParam("category"));
+        Category category = Category.valueOf(context.formParam("category").toUpperCase());
         Account account = new Account(name, balance, category, clientId);
         account.setId(accountId);
 
-        context.contentType("application/json");
-        context.result(ClientController.convertToJson(accountService.updateAccount(account)));
+        Account updatedAccount = accountService.updateAccount(account);
+        if(updatedAccount == null){
+            context.status(404);
+        }else {
+            context.contentType("application/json");
+            context.result(ClientController.convertToJson(updatedAccount));
+        }
     }
 
     public static void deleteAccount(Context context) {
         Integer accountId = Integer.parseInt(context.pathParam("accountId"));
 
-        context.contentType("application/json");
-        context.result(ClientController.convertToJson(accountService.deleteAccount(accountId)));
+        boolean successful = accountService.deleteAccount(accountId);
+        if(successful) {
+            context.contentType("application/json");
+            context.result(ClientController.convertToJson(successful));
+        }else {
+            context.status(404);
+        }
     }
 
     public static void adjustBalance(Context context) {
         Integer accountId = Integer.parseInt(context.pathParam("accountId"));
         Double withdrawAmount;
         Double depositAmount;
-
+        Account account = null;
         try{
             withdrawAmount = Double.parseDouble(context.formParam("withdraw"));
+            account = accountService.withdrawFromBalance(accountId, withdrawAmount);
         } catch (Exception e)
         {
-            withdrawAmount = 0.0;
+            withdrawAmount = -1.0;
         }
         try{
             depositAmount = Double.parseDouble(context.formParam("deposit"));
+            account = accountService.depositToBalance(accountId, depositAmount);
         } catch(Exception e)
         {
-            depositAmount = 0.0;
+            depositAmount = -1.0;
         }
-        Double amount = depositAmount - withdrawAmount;
 
-
-        context.contentType("application/json");
-        context.result(ClientController.convertToJson(accountService.adjustBalance(accountId, amount)));
+        if(account == null){
+            context.status(404);
+        }else if(account.getId() == 0){
+            context.status(422);
+        }else{
+            context.contentType("application/json");
+            context.result(ClientController.convertToJson(account));
+        }
     }
 
     public static void transferFunds(Context context) {
         Integer fromAccountId = Integer.parseInt(context.pathParam("accountId"));
         Integer toAccountId = Integer.parseInt(context.pathParam("transferId"));
-        Double transferAmount = Double.parseDouble(context.formParam("transfer"));
+        Double transferAmount = Double.parseDouble(context.formParam("amount"));
 
-        context.contentType("application/json");
-        context.result(ClientController.convertToJson(accountService.transferFunds(fromAccountId, toAccountId, transferAmount)));
-
+        Account account = accountService.transferFunds(fromAccountId, toAccountId, transferAmount);
+        if(account == null){
+            context.status(404);
+        }else if(account.getId() == 0) {
+            context.status(422);
+        }else{
+            context.contentType("application/json");
+            context.result(ClientController.convertToJson(account));
+        }
     }
 }
+

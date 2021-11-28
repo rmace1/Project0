@@ -19,8 +19,8 @@ public class AccountService {
         return accountDao.getAccounts(clientId, upperLimit, lowerLimit);
     }
 
-    public Account getAccount(Account account){
-        return accountDao.getAccount(account);
+    public Account getAccount(int accountId){
+        return accountDao.getAccount(accountId);
     }
 
     public Account updateAccount(Account account){
@@ -31,9 +31,19 @@ public class AccountService {
         return accountDao.deleteAccount(accountId);
     }
 
-    public Account adjustBalance(int accountId, double amount){
-        return accountDao.adjustBalance(accountId, amount);
+    /*public Account adjustBalance(int accountId, double amount){
+        //return accountDao.adjustBalance(accountId, amount);
+        return null;
+    }*/
+
+    public Account withdrawFromBalance(int accountId, double amount){
+        return accountDao.withdrawFromAccount(accountId, amount);
     }
+
+    public Account depositToBalance(int accountId, double amount){
+        return accountDao.depositToAccount(accountId, amount);
+    }
+
 
     public Account transferFunds(int sendingAccountId, int receivingAccountId, double amount) {
         return accountDao.transferFunds(sendingAccountId, receivingAccountId, amount);
