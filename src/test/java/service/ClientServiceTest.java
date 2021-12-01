@@ -1,5 +1,7 @@
 package service;
 
+import dao.AccountDao;
+import dao.AccountDaoInterface;
 import dao.ClientDao;
 import models.Client;
 import org.junit.jupiter.api.AfterEach;
@@ -15,11 +17,12 @@ import static org.junit.jupiter.api.Assertions.*;
 class ClientServiceTest {
 
     ClientDao clientDao = Mockito.mock(ClientDao.class);
+    AccountDao accountDao = Mockito.mock(AccountDao.class);
     ClientService clientService;
 
     @BeforeEach
     void setUp() {
-        clientService = new ClientService(clientDao);
+        clientService = new ClientService(clientDao, accountDao);
     }
 
     @AfterEach

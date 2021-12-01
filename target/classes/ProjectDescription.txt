@@ -13,6 +13,7 @@ All input is sent from a client (Postman) and handled by the Server
 Logging is implemented throughout the application
 All DAO and Service methods must have a test proving that they work
 RESTful Endpoints:
+
 POST /clients => Creates a new client return a 201 status code
 
 GET /clients => gets all clients return 200

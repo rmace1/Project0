@@ -31,8 +31,9 @@ public class Dispatcher {
                        path("/{accountId}", () -> {
                            get(AccountController::getAccount); //gets a specific account
                            put(AccountController::updateAccount); //update the specified account
+                           patch(AccountController::updatePartialAccount); //updates a limited number of fields on an account;  Also used for withdraws and deposits
                            delete(AccountController::deleteAccount); //delete the account
-                           patch(AccountController::adjustBalance); //deposit or withdraw money from an account
+                           //patch(AccountController::adjustBalance); //deposit or withdraw money from an account
                            path("/transfer/{transferId}", () -> {
                                patch(AccountController::transferFunds); //transfer from current account to specified account
                            });

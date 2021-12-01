@@ -46,7 +46,7 @@ public class ClientDao implements ClientDaoInterface {
         List<Client> clients = new ArrayList<>();
 
         try (Connection conn = DriverManager.getConnection(url, userName, password)) {
-            String sql = "SELECT * FROM clients;";
+            String sql = "SELECT * FROM clients ORDER BY id;";
 
             PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -106,7 +106,7 @@ public class ClientDao implements ClientDaoInterface {
 
     @Override
     public boolean deleteClient(int id) {
-
+        //Delete any associated accounts automatically.
         try (Connection conn = DriverManager.getConnection(url, userName, password)) {
             String sql = "DELETE FROM clients WHERE id = ?;";
             PreparedStatement ps = conn.prepareStatement(sql);

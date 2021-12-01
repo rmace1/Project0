@@ -2,6 +2,7 @@ package controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import dao.AccountDao;
 import dao.ClientDao;
 import io.javalin.http.Context;
 import models.Client;
@@ -13,7 +14,7 @@ import java.util.List;
 //Contains endpoint logic
 //Connects to dispatcher
 public class ClientController {
-    public static ClientService clientService = new ClientService(new ClientDao());
+    public static ClientService clientService = new ClientService(new ClientDao(), new AccountDao());
 
     public static List<Client> clients = new ArrayList<>();
 

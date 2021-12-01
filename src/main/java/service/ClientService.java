@@ -1,6 +1,9 @@
 package service;
 
+import dao.AccountDao;
+import dao.AccountDaoInterface;
 import dao.ClientDao;
+import models.Account;
 import models.Client;
 
 import java.util.List;
@@ -9,9 +12,11 @@ import java.util.List;
 //Connects to controller
 public class ClientService {
     ClientDao clientDao;
+    AccountDao accountDao;
 
-    public ClientService(ClientDao dao){
-        clientDao = dao;
+    public ClientService(ClientDao clientDao, AccountDao accountDao){
+        this.clientDao = clientDao;
+        this.accountDao = accountDao;
     }
 
     public boolean addClient(Client client){
@@ -34,7 +39,12 @@ public class ClientService {
     }
 
     public boolean deleteClient(int id){
-
+        List<Account> accounts = accountDao.getAccounts(id);
+        if(accounts.size() > 0){
+            for(Account account : accounts){
+                accountDao.deleteAccount(account.getId());
+            }
+        }
         return clientDao.deleteClient(id);
     }
 }
