@@ -1,0 +1,118 @@
+2021-11-22 16:34:13 WARN  Main:29 - this is a warning log.
+2021-11-22 16:34:13 ERROR Main:30 - this is an error log.
+2021-11-22 16:34:13 FATAL Main:31 - this is a fatal log.
+2021-11-22 17:17:23 WARN  Main:29 - this is a warning log.
+2021-11-22 17:17:23 ERROR Main:30 - this is an error log.
+2021-11-22 17:17:23 FATAL Main:31 - this is a fatal log.
+2021-11-22 17:18:32 WARN  Main:29 - this is a warning log.
+2021-11-22 17:18:32 ERROR Main:30 - this is an error log.
+2021-11-22 17:18:32 FATAL Main:31 - this is a fatal log.
+2021-11-22 17:22:05 WARN  Main:29 - this is a warning log.
+2021-11-22 17:22:05 ERROR Main:30 - this is an error log.
+2021-11-22 17:22:05 FATAL Main:31 - this is a fatal log.
+2021-11-22 17:23:39 WARN  Main:29 - this is a warning log.
+2021-11-22 17:23:39 ERROR Main:30 - this is an error log.
+2021-11-22 17:23:39 FATAL Main:31 - this is a fatal log.
+2021-11-22 17:24:46 WARN  Main:29 - this is a warning log.
+2021-11-22 17:24:46 ERROR Main:30 - this is an error log.
+2021-11-22 17:24:46 FATAL Main:31 - this is a fatal log.
+2021-11-22 17:26:50 WARN  Main:29 - this is a warning log.
+2021-11-22 17:26:50 ERROR Main:30 - this is an error log.
+2021-11-22 17:26:50 FATAL Main:31 - this is a fatal log.
+2021-11-22 21:43:49 WARN  Main:29 - this is a warning log.
+2021-11-22 21:43:49 ERROR Main:30 - this is an error log.
+2021-11-22 21:43:49 FATAL Main:31 - this is a fatal log.
+2021-11-22 21:52:07 WARN  Main:29 - this is a warning log.
+2021-11-22 21:52:07 ERROR Main:30 - this is an error log.
+2021-11-22 21:52:07 FATAL Main:31 - this is a fatal log.
+2021-11-22 22:00:07 WARN  Main:29 - this is a warning log.
+2021-11-22 22:00:07 ERROR Main:30 - this is an error log.
+2021-11-22 22:00:07 FATAL Main:31 - this is a fatal log.
+2021-11-22 22:04:00 WARN  Main:29 - this is a warning log.
+2021-11-22 22:04:00 ERROR Main:30 - this is an error log.
+2021-11-22 22:04:00 FATAL Main:31 - this is a fatal log.
+2021-11-22 22:13:04 WARN  Main:31 - this is a warning log.
+2021-11-22 22:13:04 ERROR Main:32 - this is an error log.
+2021-11-22 22:13:04 FATAL Main:33 - this is a fatal log.
+2021-11-24 16:22:20 ERROR ClientDao:120 - org.postgresql.util.PSQLException: ERROR: update or delete on table "clients" violates foreign key constraint "accounts_clientid_fkey" on table "accounts"
+  Detail: Key (id)=(1) is still referenced from table "accounts".
+2021-11-24 16:22:45 ERROR ClientDao:120 - org.postgresql.util.PSQLException: ERROR: update or delete on table "clients" violates foreign key constraint "accounts_clientid_fkey" on table "accounts"
+  Detail: Key (id)=(1) is still referenced from table "accounts".
+2021-11-24 16:23:03 ERROR ClientDao:120 - org.postgresql.util.PSQLException: ERROR: update or delete on table "clients" violates foreign key constraint "accounts_clientid_fkey" on table "accounts"
+  Detail: Key (id)=(1) is still referenced from table "accounts".
+2021-11-24 16:26:03 ERROR ClientDao:120 - org.postgresql.util.PSQLException: ERROR: update or delete on table "clients" violates foreign key constraint "accounts_clientid_fkey" on table "accounts"
+  Detail: Key (id)=(1) is still referenced from table "accounts".
+2021-11-24 18:02:04 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [42102-200]
+2021-11-24 18:02:04 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [42102-200]
+2021-11-24 18:02:04 ERROR AccountDao:100 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found; SQL statement:
+SELECT * FROM accounts WHERE clientid = ?; [42102-200]
+2021-11-24 18:03:48 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [42102-200]
+2021-11-24 18:03:48 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [42102-200]
+2021-11-24 18:03:48 ERROR AccountDao:100 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found; SQL statement:
+SELECT * FROM accounts WHERE clientid = ?; [42102-200]
+2021-11-24 18:04:12 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [42102-200]
+2021-11-24 18:04:12 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [42102-200]
+2021-11-24 18:04:49 ERROR AccountDao:100 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found; SQL statement:
+SELECT * FROM accounts WHERE clientid = ?; [42102-200]
+2021-11-24 18:04:55 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [42102-200]
+2021-11-24 18:04:55 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [42102-200]
+2021-11-24 18:04:55 ERROR AccountDao:100 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found; SQL statement:
+SELECT * FROM accounts WHERE clientid = ?; [42102-200]
+2021-11-24 18:05:10 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [42102-200]
+2021-11-24 18:05:10 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [42102-200]
+2021-11-24 18:05:46 ERROR AccountDao:100 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" not found; SQL statement:
+SELECT * FROM accounts WHERE clientid = ?; [42102-200]
+2021-11-24 18:15:46 ERROR AccountDao:28 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTS" already exists; SQL statement:
+CREATE TABLE clients(id serial PRIMARY KEY, firstName varchar(50), lastName varchar(50)) [42101-200]
+2021-11-24 18:15:46 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Referential integrity constraint violation: "CONSTRAINT_AF: PUBLIC.ACCOUNTS FOREIGN KEY(CLIENTID) REFERENCES PUBLIC.CLIENTS(ID) (1)"; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [23506-200]
+2021-11-24 18:15:46 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Referential integrity constraint violation: "CONSTRAINT_AF: PUBLIC.ACCOUNTS FOREIGN KEY(CLIENTID) REFERENCES PUBLIC.CLIENTS(ID) (1)"; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [23506-200]
+2021-11-24 18:15:46 ERROR AccountDao:65 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Cannot drop "CLIENTS" because "CONSTRAINT_AF" depends on it; SQL statement:
+DROP TABLE clients; [90107-200]
+2021-11-24 18:16:33 ERROR AccountDao:28 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTS" already exists; SQL statement:
+CREATE TABLE clients(id serial PRIMARY KEY, firstName varchar(50), lastName varchar(50)) [42101-200]
+2021-11-24 18:16:33 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Referential integrity constraint violation: "CONSTRAINT_AF: PUBLIC.ACCOUNTS FOREIGN KEY(CLIENTID) REFERENCES PUBLIC.CLIENTS(ID) (1)"; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [23506-200]
+2021-11-24 18:16:33 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Referential integrity constraint violation: "CONSTRAINT_AF: PUBLIC.ACCOUNTS FOREIGN KEY(CLIENTID) REFERENCES PUBLIC.CLIENTS(ID) (1)"; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [23506-200]
+2021-11-24 18:16:54 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Referential integrity constraint violation: "CONSTRAINT_AF: PUBLIC.ACCOUNTS FOREIGN KEY(CLIENTID) REFERENCES PUBLIC.CLIENTS(ID) (1)"; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [23506-200]
+2021-11-24 18:16:54 ERROR AccountDao:60 - org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException: Referential integrity constraint violation: "CONSTRAINT_AF: PUBLIC.ACCOUNTS FOREIGN KEY(CLIENTID) REFERENCES PUBLIC.CLIENTS(ID) (1)"; SQL statement:
+INSERT INTO accounts VALUES (DEFAULT, ?, ?, ?, ?); [23506-200]
+2021-11-24 18:32:37 ERROR AccountDao:28 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTS" already exists; SQL statement:
+CREATE TABLE clients(id serial PRIMARY KEY, firstName varchar(50), lastName varchar(50)) [42101-200]
+2021-11-27 20:16:08 ERROR AccountDao:278 - java.lang.NullPointerException
+2021-11-27 20:16:59 ERROR AccountDao:278 - java.lang.NullPointerException
+2021-11-29 22:03:35 ERROR AccountDao:28 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "CLIENTS" already exists; SQL statement:
+CREATE TABLE clients(id serial PRIMARY KEY, firstName varchar(50), lastName varchar(50)) [42101-200]
+2021-11-29 22:03:35 ERROR AccountDao:50 - org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ACCOUNTS" already exists; SQL statement:
+CREATE TABLE accounts(
+id serial PRIMARY KEY, 
+name varchar(50), 
+balance DOUBLE PRECISION DEFAULT 0.00, 
+category varchar(50) DEFAULT 'PERSONAL', 
+clientid int NOT NULL,
+FOREIGN KEY (clientid) REFERENCES clients(id)
+); [42101-200]
+2021-11-29 22:09:54 ERROR AccountDao:227 - java.lang.NullPointerException
+2021-11-29 22:09:54 ERROR AccountDao:332 - java.lang.NullPointerException
+2021-11-29 22:11:27 ERROR AccountDao:227 - java.lang.NullPointerException
+2021-11-29 22:11:27 ERROR AccountDao:332 - java.lang.NullPointerException
+2021-11-29 22:36:40 ERROR AccountDao:178 - java.lang.NullPointerException
+2021-11-29 22:37:05 ERROR AccountDao:178 - java.lang.NullPointerException
+2021-11-29 22:37:33 ERROR AccountDao:178 - java.lang.NullPointerException
+2021-11-30 21:53:50 ERROR AccountDao:58 - org.postgresql.util.PSQLException: ERROR: insert or update on table "accounts" violates foreign key constraint "accounts_clientid_fkey"
+  Detail: Key (clientid)=(30) is not present in table "clients".
+2021-12-01 10:40:59 ERROR ClientDao:80 - Account or client not found.
+2021-12-01 10:47:54 ERROR ClientDao:80 - Account or client not found.

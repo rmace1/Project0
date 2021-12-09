@@ -24,7 +24,9 @@ import java.util.Properties;
 public class Main {
 
     public static void main(String[] args) {
-        Javalin server = Javalin.create().start(9000);
+        Javalin server = Javalin.create(javalinConfig -> {
+            javalinConfig.addStaticFiles("/frontend", Location.CLASSPATH);
+        }).start(9000);
         new FrontController(server);
 
     }

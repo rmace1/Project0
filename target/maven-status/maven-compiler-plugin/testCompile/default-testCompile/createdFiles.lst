@@ -1,0 +1,6 @@
+service\ClientServiceTest.class
+dao\AccountDaoIT.class
+service\AccountServiceTest.class
+models\AccountTest.class
+dao\ClientDaoIT.class
+models\ClientTest.class

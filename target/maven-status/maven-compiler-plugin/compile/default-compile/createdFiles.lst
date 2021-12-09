@@ -1,0 +1,15 @@
+frontcontroller\Dispatcher.class
+service\AccountService.class
+frontcontroller\FrontController.class
+dao\ClientDaoInterface.class
+models\Category.class
+models\Client.class
+dao\AccountDaoInterface.class
+Main.class
+controllers\AccountController.class
+service\ClientService.class
+controllers\ClientController.class
+util\H2Util.class
+dao\AccountDao.class
+dao\ClientDao.class
+models\Account.class
