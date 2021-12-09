@@ -13,7 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 //Using H2 in memory database
-class ClientDaoTest {
+class ClientDaoIT {
     ClientDao clientDao;
 
     @BeforeEach

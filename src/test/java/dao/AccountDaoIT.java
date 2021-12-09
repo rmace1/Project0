@@ -15,7 +15,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AccountDaoTest {
+class AccountDaoIT {
     AccountDao accountDao;
     ClientDao clientDao;
 
